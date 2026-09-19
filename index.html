@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Portal</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 30px 15px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        h2 {
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+
+        .field {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 11px;
+            font-size: 16px;
+            border: 1px solid #bbb;
+            border-radius: 5px;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #333;
+        }
+
+        .row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .row .field {
+            flex: 1;
+        }
+
+        .price-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .price-row select {
+            width: 120px;
+        }
+
+        .price-row input {
+            flex: 1;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            background: #222;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #000;
+        }
+
+        button:disabled {
+            background: #888;
+            cursor: not-allowed;
+        }
+
+        #message {
+            display: none;
+            padding: 12px;
+            margin-top: 18px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .success {
+            display: block !important;
+            background: #e7f7ea;
+            color: #176b2c;
+            border: 1px solid #b8dfc1;
+        }
+
+        .error {
+            display: block !important;
+            background: #fdeaea;
+            color: #a11;
+            border: 1px solid #efbaba;
+        }
+
+        @media (max-width: 500px) {
+            .row {
+                display: block;
+            }
+
+            body {
+                padding: 15px 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Booking Portal</h2>
+
+    <form id="bookingForm">
+
+        <div class="field">
+            <label for="name">Passenger Name</label>
+            <input
+                type="text"
+                id="name"
+                placeholder="Passenger name"
+                required
+            >
+        </div>
+
+        <div class="row">
+
+            <div class="field">
+                <label for="airline">Airline</label>
+                <input
+                    type="text"
+                    id="airline"
+                    placeholder="Emirates"
+                    required
+                >
+            </div>
+
+            <div class="field">
+                <label for="flight">Flight Number</label>
+                <input
+                    type="text"
+                    id="flight"
+                    placeholder="EK623"
+                    required
+                >
+            </div>
+
+        </div>
+
+
+        <div class="row">
+
+            <div class="field">
+                <label for="from">From</label>
+                <input
+                    type="text"
+                    id="from"
+                    placeholder="Lahore"
+                    required
+                >
+            </div>
+
+            <div class="field">
+                <label for="to">To</label>
+                <input
+                    type="text"
+                    id="to"
+                    placeholder="Dubai"
+                    required
+                >
+            </div>
+
+        </div>
+
+
+        <div class="field">
+
+            <label for="tripType">Trip Type</label>
+
+            <select id="tripType">
+
+                <option value="One Way">
+                    One Way
+                </option>
+
+                <option value="Return">
+                    Return
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="row">
+
+            <div class="field">
+
+                <label for="travelDate">
+                    Travel Date
+                </label>
+
+                <input
+                    type="date"
+                    id="travelDate"
+                    required
+                >
+
+            </div>
+
+
+            <div
+                class="field"
+                id="returnSection"
+                style="display:none;"
+            >
+
+                <label for="returnDate">
+                    Return Date
+                </label>
+
+                <input
+                    type="date"
+                    id="returnDate"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="field">
+
+            <label for="cabin">
+                Cabin
+            </label>
+
+            <select id="cabin">
+
+                <option value="Economy">
+                    Economy
+                </option>
+
+                <option value="Business">
+                    Business
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="field">
+
+            <label for="sellingPrice">
+                Selling Price
+            </label>
+
+            <div class="price-row">
+
+                <select id="currency">
+
+                    <option value="PKR">PKR</option>
+                    <option value="USD">USD</option>
+                    <option value="AED">AED</option>
+                    <option value="UZS">UZS</option>
+
+                </select>
+
+                <input
+                    type="number"
+                    id="sellingPrice"
+                    min="0"
+                    step="0.01"
+                    placeholder="185000"
+                    required
+                >
+
+            </div>
+
+        </div>
+
+
+        <button
+            type="submit"
+            id="sendButton"
+        >
+            Send Booking
+        </button>
+
+    </form>
+
+
+    <div id="message"></div>
+
+</div>
+
+
+<script>
+
+const form =
+    document.getElementById("bookingForm");
+
+const tripType =
+    document.getElementById("tripType");
+
+const returnSection =
+    document.getElementById("returnSection");
+
+const returnDate =
+    document.getElementById("returnDate");
+
+const travelDate =
+    document.getElementById("travelDate");
+
+const sendButton =
+    document.getElementById("sendButton");
+
+const message =
+    document.getElementById("message");
+
+
+tripType.addEventListener(
+    "change",
+    function () {
+
+        if (this.value === "Return") {
+
+            returnSection.style.display =
+                "block";
+
+            returnDate.required = true;
+
+        } else {
+
+            returnSection.style.display =
+                "none";
+
+            returnDate.required = false;
+
+            returnDate.value = "";
+
+        }
+
+    }
+);
+
+
+travelDate.addEventListener(
+    "change",
+    function () {
+
+        returnDate.min =
+            travelDate.value;
+
+        if (
+            returnDate.value &&
+            returnDate.value < travelDate.value
+        ) {
+            returnDate.value = "";
+        }
+
+    }
+);
+
+
+form.addEventListener(
+    "submit",
+    async function (event) {
+
+        event.preventDefault();
+
+
+        sendButton.disabled = true;
+
+        sendButton.textContent =
+            "Sending...";
+
+
+        message.className = "";
+
+        message.style.display = "none";
+
+
+        const from =
+            document
+                .getElementById("from")
+                .value
+                .trim();
+
+        const to =
+            document
+                .getElementById("to")
+                .value
+                .trim();
+
+
+        const currency =
+            document
+                .getElementById("currency")
+                .value;
+
+
+        const price =
+            document
+                .getElementById("sellingPrice")
+                .value;
+
+
+        const booking = {
+
+            name:
+                document
+                    .getElementById("name")
+                    .value
+                    .trim(),
+
+            airline:
+                document
+                    .getElementById("airline")
+                    .value
+                    .trim(),
+
+            flight:
+                document
+                    .getElementById("flight")
+                    .value
+                    .trim(),
+
+            route:
+                `${from} → ${to}`,
+
+            tripType:
+                tripType.value,
+
+            travelDate:
+                travelDate.value,
+
+            returnDate:
+                returnDate.value,
+
+            cabin:
+                document
+                    .getElementById("cabin")
+                    .value,
+
+            sellingPrice:
+                price,
+
+            currency:
+                currency
+
+        };
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/booking",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify(booking)
+                    }
+                );
+
+
+            const result =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    result.error ||
+                    "Could not send booking"
+                );
+
+            }
+
+
+            message.className =
+                "success";
+
+            message.textContent =
+                "✓ Booking sent successfully — " +
+                result.bookingId;
+
+
+            form.reset();
+
+            returnSection.style.display =
+                "none";
+
+            returnDate.required = false;
+
+
+        } catch (error) {
+
+            message.className =
+                "error";
+
+            message.textContent =
+                "✕ " + error.message;
+
+        } finally {
+
+            sendButton.disabled = false;
+
+            sendButton.textContent =
+                "Send Booking";
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
